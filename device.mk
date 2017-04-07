@@ -40,7 +40,8 @@ PRODUCT_PACKAGES += \
     LineageSystemUIBerlna \
     SettingsResBerlna \
     SettingsProviderResBerlna \
-    SystemUIResBerlna
+    SystemUIResBerlna \
+    WifiResBerlna
 
 # Audio
 PRODUCT_COPY_FILES += \

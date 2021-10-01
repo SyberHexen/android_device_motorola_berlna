@@ -32,3 +32,15 @@
 
 # Removable storage
 /usb_otg               vfat               /dev/block/sdg1                                               flags=fsflags=utf8;display="USB Storage";storage;wipeingui;removable;
+
+# Dyanmic Partitions
+system           ext4       /system                                               display="System"
+system_ext       ext4       /system_ext                                           display="System_Ext"
+product          ext4       /product                                              display="Product"
+vendor           ext4       /vendor                                               display="Vendor"
+
+# Flashable logical partitions
+/system_image        emmc       /dev/block/bootdevice/by-name/system                  flags=backup=1;display="System Image";flashimg=1
+/system_ext_image    emmc       /dev/block/bootdevice/by-name/system_ext              flags=backup=1;display="System Ext Image";flashimg=1
+/product_image       emmc       /dev/block/bootdevice/by-name/product                 flags=backup=1;display="Product Image";flashimg=1
+/vendor_image        emmc       /dev/block/bootdevice/by-name/vendor                  flags=backup=1;display="Vendor Image";flashimg=1

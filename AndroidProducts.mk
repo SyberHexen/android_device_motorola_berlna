@@ -15,9 +15,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_berlna.mk
+    $(LOCAL_DIR)/aosp_berlna.mk
 
 COMMON_LUNCH_CHOICES := \
-    lineage_berlna-user \
-    lineage_berlna-userdebug \
-    lineage_berlna-eng
+    aosp_berlna-eng \
+    aosp_berlna-user \
+    aosp_berlna-userdebug

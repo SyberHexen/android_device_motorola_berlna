@@ -21,10 +21,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from berlna device
 $(call inherit-product, device/motorola/berlna/device.mk)
 
-# Inherit some common Lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+# Inherit some common aosp stuff.
+$(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
-PRODUCT_NAME := lineage_berlna
+PRODUCT_NAME := aosp_berlna
 PRODUCT_DEVICE := berlna
 PRODUCT_MANUFACTURER := motorola
 PRODUCT_BRAND := motorola

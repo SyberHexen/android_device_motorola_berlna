@@ -66,6 +66,10 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_SOURCE := kernel/nothing/spacewar
 TARGET_KERNEL_CONFIG := spacewar_defconfig
 
+TARGET_FORCE_PREBUILT_KERNEL := true
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz-dtb
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/dtbo.img
+
 # Platform
 TARGET_BOARD_PLATFORM := lahaina
 

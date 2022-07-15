@@ -5,3 +5,7 @@
 #
 
 LOCAL_PATH := device/nothing/spacewar
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH)

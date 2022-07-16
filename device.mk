@@ -15,7 +15,12 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.1-impl.recovery \
     bootctrl.lahaina \
     bootctrl.lahaina.recovery
-        
+
+# fastbootd
+PRODUCT_PACKAGES += \
+    android.hardware.fastboot@1.0-impl-mock \
+    fastbootd
+
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)

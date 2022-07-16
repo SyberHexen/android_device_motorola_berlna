@@ -24,6 +24,11 @@ TARGET_2ND_CPU_VARIANT := generic
 
 TARGET_USES_64_BIT_BINDER := true
 
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME := lahaina
+TARGET_NO_BOOTLOADER := true
+TARGET_USES_UEFI := true
+
 # Assert
 TARGET_OTA_ASSERT_DEVICE := spacewar
 

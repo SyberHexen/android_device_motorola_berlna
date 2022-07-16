@@ -1,0 +1,49 @@
+name: "[TWRP][spacewar] Nothing Phone (1)"
+
+on:
+  watch:
+    types: [started]
+
+env:
+  TZ: Europe/Rome
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+       - name: Checkout
+         uses: actions/checkout@master
+
+       - name: "Set up build envoriament"
+         run: |
+            sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
+            docker rmi `docker images -q` >/dev/null 2>&1
+            sudo -E apt-get remove aisleriot brltty duplicity empathy* example-content gnome* landscape-common libreoffice* libsane* python3-uno rhythmbox* sane-utils shotwell* telepathy* totem* printer* >/dev/null 2>&1 
+            sudo -E apt-get purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php* >/dev/null 2>&1
+            sudo -E apt-get clean >/dev/null 2>&1
+            sudo -E apt-get update >/dev/null 2>&1
+            sudo -E apt-get install git-core gnupg flex bison build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig >/dev/null 2>&1
+            sudo -E curl --create-dirs -L -o /usr/local/bin/repo -O -L https://storage.googleapis.com/git-repo-downloads/repo
+            sudo -E chmod a+rx /usr/local/bin/repo
+            git config --global user.name "Antonino Scordino"
+            git config --global user.email "git@antonino.cf"     
+             
+       - name: "Sync & compile"
+         run: |
+            mkdir twrp
+            cd twrp
+            repo init -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-12.1 --depth=1 --groups=all,-notdefault,-device,-darwin,-x86,-mips
+            repo sync -j4
+            git clone https://github.com/nothing-sm7325-devs/recovery_device_nothing_spacewar --depth=1 --single-branch device/nothing/spacewar
+            . build/envsetup.sh && lunch twrp_spacewar-eng && mka bootimage -j4
+
+       - uses: actions/upload-artifact@v2
+         with:
+          name: recoveryzip
+          path: work/out/target/product/*/*.zip
+
+       - uses: actions/upload-artifact@v2
+         with:
+          name: recoveryimage
+          path: work/out/target/product/*/*.img

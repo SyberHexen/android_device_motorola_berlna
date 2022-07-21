@@ -16,7 +16,7 @@
 
 
 cc_library {
-    name: "libgptutils.nothing_lahaina",
+    name: "libgptutils.lahaina",
     vendor: true,
     recovery_available: true,
     shared_libs: [

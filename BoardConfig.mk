@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/nothing/spacewar
+DEVICE_PATH := device/motorola/dubai
 
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
@@ -34,7 +34,6 @@ TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
-
 TARGET_SUPPORTS_64_BIT_APPS := true
 
 # Bootloader
@@ -43,59 +42,66 @@ TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := spacewar
+TARGET_OTA_ASSERT_DEVICE := dubai
 
-# File systems
+# Kernel
+BOARD_KERNEL_PAGESIZE := 4096
+BOARD_BOOTIMG_HEADER_VERSION := 3
+BOARD_KERNEL_IMAGE_NAME := Image
+TARGET_KERNEL_ARCH := arm64
+TARGET_KERNEL_HEADER_ARCH := arm64
+TARGET_FORCE_PREBUILT_KERNEL := true
+
+VENDOR_CMDLINE :=  "console=ttyMSM0,115200n8 \
+                   androidboot.hardware=qcom \
+                   androidboot.console=ttyMSM0 \
+                   androidboot.memcg=1 \
+                   lpm_levels.sleep_disabled=1 \
+                   video=vfb:640x400,bpp=32,memsize=3072000 \
+                   msm_rtb.filter=0x237 \
+                   service_locator.enable=1 \
+                   androidboot.usbcontroller=a600000.dwc3 \
+                   swiotlb=0 \
+                   loop.max_part=7 \
+                   cgroup.memory=nokmem,nosocket \
+                   pcie_ports=compat loop.max_part=7 \
+                   iptable_raw.raw_before_defrag=1 \
+                   ip6table_raw.raw_before_defrag=1 \
+                   androidboot.hab.csv=4 \
+                   androidboot.hab.product=dubai \
+                   androidboot.hab.cid=50 \
+                   firmware_class.path=/vendor/firmware_mnt/image \
+                   androidboot.init_fatal_reboot_target=recovery \
+                   androidboot.selinux=permissive"
+
+BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
+BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_KERNEL_PAGESIZE) --board ""
+BOARD_MKBOOTIMG_ARGS += --vendor_cmdline $(VENDOR_CMDLINE)
+
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
+TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb
+
+# Platform
+TARGET_BOARD_PLATFORM := lahaina
+
+# Partitions
+BOARD_FLASH_BLOCK_SIZE := 262144
 BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := $(BOARD_BOOTIMAGE_PARTITION_SIZE)
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_COPY_OUT_VENDOR := vendor
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
-TARGET_COPY_OUT_VENDOR := vendor
-
-# Kernel
-BOARD_FLASH_BLOCK_SIZE := 131072
-BOARD_KERNEL_PAGESIZE := 4096
-BOARD_BOOTIMG_HEADER_VERSION := 3
-BOARD_INCLUDE_RECOVERY_DTBO := true
-
-BOARD_KERNEL_CMDLINE := \
-    androidboot.hardware=qcom \
-    androidboot.memcg=1 \
-    lpm_levels.sleep_disabled=1 \
-    video=vfb:640x400,bpp=32,memsize=3072000 \
-    msm_rtb.filter=0x237 \
-    service_locator.enable=1 \
-    androidboot.usbcontroller=a600000.dwc3 \
-    swiotlb=0 \
-    loop.max_part=7 \
-    cgroup.memory=nokmem,nosocket \
-    pcie_ports=compat \
-    loop.max_part=7 \
-    iptable_raw.raw_before_defrag=1 \
-    ip6table_raw.raw_before_defrag=1
-
-BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-TARGET_KERNEL_ARCH := arm64
-TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_KERNEL_SOURCE := kernel/nothing/spacewar
-TARGET_KERNEL_CONFIG := spacewar_defconfig
-
-TARGET_FORCE_PREBUILT_KERNEL := true
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz-dtb
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/dtbo.img
-
-# Platform
-TARGET_BOARD_PLATFORM := lahaina
 
 # Recovery
-BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_USES_RECOVERY_AS_BOOT := true
-TARGET_NO_RECOVERY := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 
 # Hack: prevent anti rollback
 PLATFORM_SECURITY_PATCH := 2099-12-31
@@ -108,6 +114,9 @@ TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
+TW_EXCLUDE_TWRPAPP := true
+TW_INCLUDE_RESETPROP := true
+TW_INCLUDE_REPACKTOOLS := true
 
 # Verified Boot
 BOARD_AVB_ENABLE := true

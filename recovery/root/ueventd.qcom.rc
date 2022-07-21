@@ -28,7 +28,7 @@
 # Firmware directory Path
 # Below macro will be read by uevent and path will
 # be added to search path for firmware loading
-firmware_directories /vendor/firmware_mnt/image/ /mnt/vendor/persist/
+firmware_directories /vendor/firmware_mnt/image/
 
 # the DIAG device node is not world writable/readable.
 /dev/diag                 0660   system     oem_2901
@@ -178,10 +178,6 @@ firmware_directories /vendor/firmware_mnt/image/ /mnt/vendor/persist/
 /dev/bus/usb/*                      0660  root    usb
 /dev/hidraw*                        0660  root    usb
 
-# gene.yan add for NFC @{
-/dev/st21nfc              0660   nfc        nfc
-# @}
-
 # wlan
 /dev/wcnss_wlan           0660   system     system
 /dev/wcnss_ctrl           0660   system     system
@@ -299,6 +295,7 @@ firmware_directories /vendor/firmware_mnt/image/ /mnt/vendor/persist/
 /sys/devices/virtual/input/input*                   enable_ps_sensor 0660  system   input
 /sys/devices/virtual/input/input*                   set_delay_ms     0660  system   input
 /sys/devices/virtual/input/input*                   do_flush         0660  system   input
+/dev/stmvl53l5            0660   system     camera
 
 # vm_bms
 /dev/vm_bms               0660   system     system
@@ -342,6 +339,19 @@ firmware_directories /vendor/firmware_mnt/image/ /mnt/vendor/persist/
 /sys/class/fts/touch_aoi aoi_set 0660 root system
 /sys/class/fts/touch_aoi power_set 0660 root system
 
+# Goodix fingerprint device
+/dev/goodix_fp            0660   system     system
+
+# EgisTech fingerprint device
+/dev/esfp0                0660   system     system
+
+# Change permission for FPC fingerprint
+/sys/class/fingerprint/fpc1020 nav        0440     system    system
+/sys/class/fingerprint/fpc1020 irq        0440     system    system
+/sys/class/fingerprint/fpc1020 irq_cnt    0440     system    system
+/sys/class/fingerprint/fpc1020 dev_enable 0220     system    system
+/sys/class/fingerprint/fpc1020 vendor     0444     system    system
+
 #ImproveTouch device
 /dev/hbtp_input           0660   system     system
 /dev/hbtp_vm              0660   system     system
@@ -360,11 +370,18 @@ firmware_directories /vendor/firmware_mnt/image/ /mnt/vendor/persist/
 # This is temporary while using SD card for initial bring-up
 /dev/block/platform/soc/8804000.sdhci/by-name/frp       0600   system     system
 
+# Add device block for MISC
+/dev/block/platform/soc/7464900.sdhci/by-name/misc       0660   root     system
+/dev/block/platform/soc/624000.ufshc/by-name/misc        0660   root     system
+/dev/block/platform/soc/1da4000.ufshc/by-name/misc       0660   root     system
+/dev/block/platform/soc/c0c4000.sdhci/by-name/misc       0660   root     system
+/dev/block/platform/soc/1d84000.ufshc/by-name/misc       0660   root     system
+/dev/block/platform/soc/7c4000.sdhci/by-name/misc        0660   root     system
+/dev/block/platform/soc/4744000.sdhci/by-name/misc       0660   root     system
+/dev/block/platform/soc/4804000.ufshc/by-name/misc       0660   root     system
+
 # Kmsg device
 /dev/kmsg                                               0620   root       system
-
-#LED aw210xx device
-/dev/aw210xx_nf          0444    system    system
 
 # LED class devices
 /sys/class/leds/red      delay_on     0640    system    system
@@ -486,3 +503,9 @@ firmware_directories /vendor/firmware_mnt/image/ /mnt/vendor/persist/
 /sys/devices/platform/soc/*.i2c/i2c-*/*-*/iio:device*   in_temp_raw                     0664    system  system
 /sys/devices/platform/soc/*.i2c/i2c-*/*-*/iio:device*   in_temp_scale                   0664    system  system
 /sys/devices/platform/soc/*.i2c/i2c-*/*-*/iio:device*   in_temp_scale_available         0664    system  system
+
+# I2C
+/dev/i2c-*                0660   system     system
+
+# NFC ST Driver permissions
+/dev/st21nfc              0660   nfc        nfc

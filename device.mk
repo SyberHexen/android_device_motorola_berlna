@@ -7,6 +7,12 @@
 
 LOCAL_PATH := device/motorola/dubai
 
+#SHIPPING API
+PRODUCT_SHIPPING_API_LEVEL := 31
+
+#VNDK API
+PRODUCT_TARGET_VNDK_VERSION := 31
+
 # Enable project quotas and casefolding for emulated storage without sdcardfs
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 

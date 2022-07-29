@@ -1,32 +1,74 @@
 import /init.recovery.qcom_decrypt.rc
 
-on init
+on early-init
+    exec u:r:set_permissive:s0 -- /system/bin/set_permissive.sh
+    
+    # create symlink for vendor mount points
+    symlink /vendor/firmware_mnt /firmware
+    symlink /vendor/bt_firmware /bt_firmware
+    symlink /vendor/dsp /dsp
+
+on init    
+    mount_all /vendor/etc/charger_fw_fstab.qti --early
     write /sys/class/backlight/panel0-backlight/brightness 200
-    start set_permissive
+    setprop sys.usb.configfs 1
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-    # Mount firmware
-    mkdir /firmware
     mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro
     
 on post-fs
     start boot-hal-1-1
 
+on late-fs
+    start keymasterd
+    start set_permissive
+    start health-hal-2-1
+
 on boot
     setprop sys.usb.config mtp,adb
+    health-hal-2-1
+
+on property:modem.partition.mounted=1
+    insmod /vendor/lib/modules/q6_pdr_dlkm.ko
+    insmod /vendor/lib/modules/q6_notifier_dlkm.ko
+    insmod /vendor/lib/modules/snd_event_dlkm.ko
+    insmod /vendor/lib/modules/apr_dlkm.ko
+    insmod /vendor/lib/modules/adsp_loader_dlkm.ko
+    write /sys/kernel/boot_adsp/boot 1
+    wait /sys/class/power_supply/battery
 
 on property:twrp.modules.loaded=true
     # Load ADSP firmware for PMIC
     wait /sys/kernel/boot_adsp/boot
     write /sys/kernel/boot_adsp/boot 1
     wait /sys/class/power_supply/battery
-    start health-hal-2-1
+
+on property:ro.boot.usbcontroller=*
+    setprop sys.usb.controller ${ro.boot.usbcontroller}
+    wait /sys/bus/platform/devices/${ro.boot.usb.dwc3_msm:-a600000.ssusb}/mode
+    write /sys/bus/platform/devices/${ro.boot.usb.dwc3_msm:-a600000.ssusb}/mode peripheral
+
+on charger
+    setprop sys.usb.controller a600000.dwc3
+    setprop sys.usb.configfs 1
 
 service set_permissive /system/bin/set_permissive.sh
     user root
     group root
     disabled
-    oneshot 
+    oneshot
+    seclabel u:r:recovery:s0
+
+service keymasterd /system/bin/keymasterd
+     user root
+     group root
+     disabled
+     seclabel u:r:recovery:s0
+
+service health-hal-2-1 /system/bin/android.hardware.health@2.1-service
+    user root
+    group root
+    disabled
     seclabel u:r:recovery:s0

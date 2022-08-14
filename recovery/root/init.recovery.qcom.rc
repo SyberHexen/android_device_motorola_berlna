@@ -2,13 +2,13 @@ import /init.recovery.qcom_decrypt.rc
 
 on early-init
     exec u:r:set_permissive:s0 -- /system/bin/set_permissive.sh
-    
+
     # create symlink for vendor mount points
     symlink /vendor/firmware_mnt /firmware
     symlink /vendor/bt_firmware /bt_firmware
     symlink /vendor/dsp /dsp
 
-on init    
+on init
     mount_all /vendor/etc/charger_fw_fstab.qti --early
     write /sys/class/backlight/panel0-backlight/brightness 200
     setprop sys.usb.configfs 1
@@ -17,7 +17,7 @@ on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
     mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro
-    
+
 on post-fs
     start boot-hal-1-1
 
@@ -28,7 +28,6 @@ on late-fs
 
 on boot
     setprop sys.usb.config mtp,adb
-    health-hal-2-1
 
 on property:modem.partition.mounted=1
     insmod /vendor/lib/modules/q6_pdr_dlkm.ko

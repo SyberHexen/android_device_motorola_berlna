@@ -31,7 +31,7 @@ Touch Sampling Rate | 360 Hz
 
 ## Kernel
 
-Prebuilt kernel from stock ROM user-12-S1RD32.55-67-25c3ec-release-keys
+Prebuilt kernel from stock ROM user-12-S1RD32.55-94-2-25a783-release-keys
 
 ## Compile
 

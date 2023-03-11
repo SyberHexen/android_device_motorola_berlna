@@ -1,37 +1,32 @@
-# TWRP Device configuration for Motorola Edge 30
+# TWRP Device configuration for Motorola Edge 2021
 
-The Motorola Edge 30 (codenamed _"dubai"_) are high-end smartphones from Motorola.
+The Motorola Edge 2021 (codenamed _"berlna"_) are high-end smartphones from Motorola.
 
-It was announced in April 2022. Release date was May 2022.
+It was announced in August 19th 2021. Release date was September 2nd 2021.
 
 ## Device specifications
 
 Basic   | Spec Sheet
 -------:|:-------------------------
-SoC     | Qualcomm SM7350-AE Snapdragon 778G+ 5G (5 nm)
-CPU     | Octa-core (1x2.5 GHz Cortex-A78 & 3x2.4 GHz Cortex-A78 & 4x1.8 GHz Cortex-A55)
+CPU     | Octa-core (1x2.4 GHz Cortex-A78 & 3x2.2 GHz Cortex-A78 & 4x1.9 GHz Cortex-A55)
+CHIPSET | Qualcomm SM7325 Snapdragon 778G
 GPU     | Adreno 642L
-Memory  | 6 / 8 GB
-Shipped Android Version | 12
-Storage | 128 / 256 GB (UFS 3.1)
-Battery | Non-removable Li-Po 4020 mAh
-Dimensions | 159.4 x 74.2 x 6.8 mm (6.28 x 2.92 x 0.27 in)
-Display | 1080 x 2400 pixels, AMOLED, 1B colors, 144Hz, HDR10+, 950 nits (HBM)
-Rear Camera 1 | 50 MP, f/1.8, (wide), 1/1.55", 1.0µm, multi-directional PDAF, OIS
-Rear Camera 2 | 50 MP, f/2.2, 118˚ (ultrawide), 1/2.76", 0.64µm, PDAF
-Rear Camera 3 | 2 MP, f/2.4, (depth)
-Front Camera | 32 MP, f/2.3, (wide), 0.7µm
-Extras | Stereo Speakers, NFC, Bluetooth 5.2 A2DP LE, UDFPS, USB Type-C 2.0, Fast charging 33W
-Ingress Protection | IP52
-Touch Sampling Rate | 360 Hz
+Shipped Android Version | 11
+Memory  | 8 GB
+Storage | 256GB
+Battery | 5000 mAh
+Dimensions | 169 x 75.6 x 9 mm
+Display | 1080 x 2460 pixels, 6.8" TFT IPS LCD, 144Hz, HDR10
+Rear Camera  | 108 MP (f/1.9) + 8 MP (f/2.2) + 2 MP (f/2.4)
+Front Camera | 32 MP (f/2.3)
 
 ## Device picture
 
-![Device Picture](https://motorolaau.vtexassets.com/arquivos/ids/156289/Motorola-edge-30-pdp-render-Silence-12-bcxm87y2.png)
+![Device Picture](https://fdn2.gsmarena.com/vv/pics/motorola/motorola-edge-2021-00.jpg)
 
 ## Kernel
 
-Prebuilt kernel from stock ROM user-12-S1RD32.55-94-2-25a783-release-keys
+Prebuilt kernel from LineageOS
 
 ## Compile
 
@@ -50,7 +45,7 @@ Then add to a local manifest (if you don't have .repo/local_manifest then make t
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
   <project name="osm0sis/twrp_abtemplate" path="bootable/recovery/installer" remote="github" revision="master"/>
-  <project name="android_device_motorla_dubai" path="device/motorola/dubai" remote="TeamWin" revision="android-12.1"/>
+  <project name="android_device_motorla_berlna" path="device/motorola/berlna" remote="TeamWin" revision="android-12.1"/>
 </manifest>
 ```
 
@@ -68,6 +63,6 @@ Finally execute these:
 . build/envsetup.sh
 export ALLOW_MISSING_DEPENDENCIES=true
 export LC_ALL=C
-lunch twrp_dubai-eng
+lunch twrp_berlna-eng
 make adbd bootimage
 ```

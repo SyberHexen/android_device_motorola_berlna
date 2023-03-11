@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-LOCAL_PATH := device/motorola/dubai
+LOCAL_PATH := device/motorola/berlna
 
 #SHIPPING API
 PRODUCT_SHIPPING_API_LEVEL := 31
@@ -21,9 +21,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
 # Enable 64-bit support
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-
-# Enable virtual A/B OTA
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 
 # Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)

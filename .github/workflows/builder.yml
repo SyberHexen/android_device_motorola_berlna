@@ -1,4 +1,4 @@
-name: "[TWRP][dubai] Motorola Edge 30"
+name: "[TWRP][berlna] Motorola Edge 2021"
 
 on:
   workflow_dispatch:
@@ -42,7 +42,8 @@ jobs:
             git fetch https://gerrit.twrp.me/android_bootable_recovery refs/changes/05/5405/26 && git cherry-pick FETCH_HEAD
             cd ~/twrp
             git clone https://github.com/Pranav-Talmale/android_device_motorola_dubai-twrp --depth=1 -b twrp-12.1 device/motorola/dubai
-            . build/envsetup.sh && lunch twrp_dubai-eng && mka bootimage -j4
+            git clone https://github.com/SyberHexen/android_device_motorola_berlna-twrp --depth=1 -b twrp-12.1 device/motorola/berlna
+            . build/envsetup.sh && lunch twrp_berlna-eng && mka bootimage -j4
 
        - uses: actions/upload-artifact@v2
          with:

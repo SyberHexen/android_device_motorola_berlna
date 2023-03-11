@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/motorola/dubai
+DEVICE_PATH := device/motorola/berlna
 
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
@@ -28,12 +28,14 @@ TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT_RUNTIME := kryo385
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
+TARGET_2ND_CPU_VARIANT_RUNTIME := kryo385
 TARGET_SUPPORTS_64_BIT_APPS := true
 
 # Bootloader
@@ -42,7 +44,7 @@ TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := dubai
+TARGET_OTA_ASSERT_DEVICE := berlna
 
 # Kernel
 BOARD_KERNEL_PAGESIZE := 4096
@@ -67,8 +69,8 @@ VENDOR_CMDLINE :=  "console=ttyMSM0,115200n8 \
                    pcie_ports=compat loop.max_part=7 \
                    iptable_raw.raw_before_defrag=1 \
                    ip6table_raw.raw_before_defrag=1 \
-                   androidboot.hab.csv=4 \
-                   androidboot.hab.product=dubai \
+                   androidboot.hab.csv=18 \
+                   androidboot.hab.product=berlna \
                    androidboot.hab.cid=50 \
                    firmware_class.path=/vendor/firmware_mnt/image \
                    androidboot.init_fatal_reboot_target=recovery \

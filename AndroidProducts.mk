@@ -6,9 +6,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/twrp_dubai.mk
+    $(LOCAL_DIR)/twrp_berlna.mk
 
 COMMON_LUNCH_CHOICES := \
-    twrp_dubai-user \
-    twrp_dubai-userdebug \
-    twrp_dubai-eng
+    twrp_berlna-user \
+    twrp_berlna-userdebug \
+    twrp_berlna-eng

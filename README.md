@@ -26,7 +26,10 @@ Front Camera | 32 MP (f/2.3)
 
 ## Kernel
 
-Prebuilt kernel from LineageOS
+Prebuilt kernel source:
+```
+https://github.com/SyberHexen/android_kernel_motorola_sm7325/tree/twrp-12.1
+```
 
 ## Compile
 
@@ -44,8 +47,8 @@ Then add to a local manifest (if you don't have .repo/local_manifest then make t
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <project name="osm0sis/twrp_abtemplate" path="bootable/recovery/installer" remote="github" revision="master"/>
-  <project name="android_device_motorla_berlna" path="device/motorola/berlna" remote="TeamWin" revision="android-12.1"/>
+  <project name="SyberHexen/AnyKernel3" path="bootable/recovery/installer" remote="github" revision="master+twrp"/>
+  <project name="android_device_motorla_berlna" path="device/motorola/berlna" remote="github" revision="twrp-12.1"/>
 </manifest>
 ```
 

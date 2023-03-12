@@ -25,8 +25,8 @@ jobs:
             sudo -E apt-get install git-core gnupg flex bison build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig >/dev/null 2>&1
             sudo -E curl --create-dirs -L -o /usr/local/bin/repo -O -L https://storage.googleapis.com/git-repo-downloads/repo
             sudo -E chmod a+rx /usr/local/bin/repo
-            git config --global user.name "Pranav Talmale"
-            git config --global user.email "pranavtalmale@gmail.com"     
+            git config --global user.name "Andrew Hexen"
+            git config --global user.email "SyberHexen@gmail.com"     
              
        - name: "Sync & compile"
          run: |
@@ -35,14 +35,11 @@ jobs:
             cd twrp
             repo init -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-12.1 --depth=1 --groups=all,-notdefault,-device,-darwin,-x86,-mips
             repo sync -j4
-            cd system/vold
-            git fetch https://gerrit.twrp.me/android_system_vold refs/changes/40/5540/7 && git cherry-pick FETCH_HEAD
+            cd build
+            git fetch https://gerrit.twrp.me/android_build refs/changes/45/5445/1 && git cherry-pick FETCH_HEAD
             cd ~/twrp
-            cd bootable/recovery
-            git fetch https://gerrit.twrp.me/android_bootable_recovery refs/changes/05/5405/26 && git cherry-pick FETCH_HEAD
-            cd ~/twrp
-            git clone https://github.com/Pranav-Talmale/android_device_motorola_dubai-twrp --depth=1 -b twrp-12.1 device/motorola/dubai
-            git clone https://github.com/SyberHexen/android_device_motorola_berlna-twrp --depth=1 -b twrp-12.1 device/motorola/berlna
+            git clone https://github.com/SyberHexen/AnyKernel3 --depth=1 -b master+twrp bootable/recovery/installer
+            git clone https://github.com/SyberHexen/android_device_motorola_berlna --depth=1 -b twrp-12.1 device/motorola/berlna
             . build/envsetup.sh && lunch twrp_berlna-eng && mka bootimage -j4
 
        - uses: actions/upload-artifact@v2

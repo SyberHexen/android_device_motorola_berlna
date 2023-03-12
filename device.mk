@@ -83,8 +83,6 @@ PRODUCT_PACKAGES += \
     qcom_decrypt \
     qcom_decrypt_fbe
 
-TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko qpnp_adaptive_charge.ko sensors_class.ko moto_f_usbnet.ko mmi_sys_temp.ko mmi_info.ko mmi_annotate.ko goodix_brl_mmi.ko mmi_charger.ko mpq-adapter.ko touchscreen_mmi.ko utags.ko"
-
 TARGET_RECOVERY_DEVICE_MODULES += \
     libdisplayconfig.qti \
     libion \

@@ -29,17 +29,17 @@ on late-fs
 on boot
     setprop sys.usb.config mtp,adb
 
-on property:modem.partition.mounted=1
-    insmod /vendor/lib/modules/q6_pdr_dlkm.ko
-    insmod /vendor/lib/modules/q6_notifier_dlkm.ko
-    insmod /vendor/lib/modules/snd_event_dlkm.ko
-    insmod /vendor/lib/modules/apr_dlkm.ko
-    insmod /vendor/lib/modules/adsp_loader_dlkm.ko
-    write /sys/kernel/boot_adsp/boot 1
-    wait /sys/class/power_supply/battery
+on property:vendor.sys.listeners.registered=true
+    start load_modules
 
 on property:twrp.modules.loaded=true
     # Load ADSP firmware for PMIC
+    wait /sys/kernel/boot_adsp/boot
+    write /sys/kernel/boot_adsp/boot 1
+    wait /sys/class/power_supply/battery
+    setprop twrp.loaded.adsp true
+
+on property:twrp.loaded.adsp=true
     wait /sys/kernel/boot_adsp/boot
     write /sys/kernel/boot_adsp/boot 1
     wait /sys/class/power_supply/battery
@@ -54,6 +54,13 @@ on charger
     setprop sys.usb.configfs 1
 
 service set_permissive /system/bin/set_permissive.sh
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+service load_modules /system/bin/load_modules.sh
     user root
     group root
     disabled

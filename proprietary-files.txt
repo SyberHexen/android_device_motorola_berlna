@@ -437,6 +437,12 @@ vendor/lib64/libets_fp_et5.so
 vendor/lib64/libets_teeclient.so
 vendor/lib64/vendor.egistec.hardware.fingerprint@2.0.so
 
+# HotwordEnrollment
+-product/priv-app/HotwordEnrollmentOKGoogleHEXAGON/HotwordEnrollmentOKGoogleHEXAGON.apk
+-product/priv-app/HotwordEnrollmentXGoogleHEXAGON/HotwordEnrollmentXGoogleHEXAGON.apk
+system_ext/etc/permissions/com.android.hotwordenrollment.common.util.xml
+system_ext/framework/com.android.hotwordenrollment.common.util.jar
+
 # MotCamera3
 product/app/MotCamera3AI/MotCamera3AI.apk;PRESIGNED
 product/priv-app/MotCamera3/MotCamera3.apk;OVERRIDES=Aperture|fe46dccdccfd08bc416fabc97662df3c15440aa6

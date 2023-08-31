@@ -4,7 +4,7 @@ on early-init && property:ro.bootmode=mot-factory
     insmod /vendor/lib/modules/moto_f_usbnet.ko
 
 on early-init
-   exec_background u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules/${ro.vendor.mot.gki.path} mmi_annotate mmi_info mmi_relay
+   exec_background u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules mmi_annotate mmi_info mmi_relay
 
 on early-init
    insmod /vendor/lib/modules/bm_adsp_ulog.ko
@@ -13,13 +13,12 @@ on early-init
    insmod /vendor/lib/modules/aw882xx_k504.ko
    insmod /vendor/lib/modules/mmi_sys_temp.ko
    insmod /vendor/lib/modules/wl2864c.ko
-   insmod /vendor/lib/modules/goodix_mmi.ko
    insmod /vendor/lib/modules/camera.ko
    insmod /vendor/lib/modules/aw8695.ko
    insmod /vendor/lib/modules/cci_intf.ko
    insmod /vendor/lib/modules/qpnp_adaptive_charge.ko
-   insmod /vendor/lib/modules/5.4-gki/camera.ko
-   insmod /vendor/lib/modules/5.4-gki/aw8695.ko
+   insmod /vendor/lib/modules/camera.ko
+   insmod /vendor/lib/modules/aw8695.ko
    start vendor.mmi_modules
 
 on post-fs
@@ -60,8 +59,8 @@ on boot
     chown system system /sys/devices/platform/soc/a94000.i2c/i2c-2/2-0049/single_click
     chmod 0660 /sys/devices/platform/soc/a94000.i2c/i2c-2/2-0049/single_click
    # Set adaptive charging perms for HAL
-    chown system system /sys/module/qpnp_adaptive_charge/parameters/upper_limit
-    chown system system /sys/module/qpnp_adaptive_charge/parameters/lower_limit
+   chown system system /sys/module/qpnp_adaptive_charge/parameters/upper_limit
+   chown system system /sys/module/qpnp_adaptive_charge/parameters/lower_limit
     # touch screen calibration file
     mkdir /mnt/vendor/persist/touch
     chown vendor_tcmd system /mnt/vendor/persist/touch
@@ -80,13 +79,6 @@ on property:persist.vendor.paramfile.parse_panel=1
     write /sys/devices/platform/soc/soc:qcom,dsi-display-primary/dsi_display_parse_para "1"
 
 service vendor.ident-fps-overlay-sh /vendor/bin/init.oem.fingerprint.overlay.sh
-    class core
-    user root
-    group drmrpc system
-    oneshot
-    disabled
-
-service vendor.ident-fps-sh /vendor/bin/init.oem.fingerprint.sh
     class core
     user root
     group drmrpc system

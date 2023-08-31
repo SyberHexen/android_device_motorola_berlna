@@ -91,3 +91,10 @@ service egis_ident /vendor/bin/egis_ident
     group system
     oneshot
     disabled
+
+service gf_ident /vendor/bin/goodix_ident
+    class late_start
+    user system
+    group system input uhid
+    oneshot
+    disabled

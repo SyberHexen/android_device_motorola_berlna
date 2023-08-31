@@ -46,7 +46,7 @@ function ident_fps {
     log "- identify Goodix fingerprint sensor"
     is_file_ready /dev/goodix_fp
     is_file_ready /vendor/firmware_mnt/image/goodixfp.mdt
-    /vendor/bin/hw/goodix_ident
+    /vendor/bin/goodix_ident
     if [ $? -eq 0 ]; then
         log "ok"
         echo $FPS_VENDOR_GOODIX > $persist_fps_id

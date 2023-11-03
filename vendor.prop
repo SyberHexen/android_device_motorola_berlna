@@ -1,11 +1,17 @@
+# Audio
+persist.vendor.media.recorder.bt709=true
+persist.vendor.audio.fluence.voicecomm=true
+vendor.mm.en.sec.smoothstreaming=false
+
 # Bluetooth
 bluetooth.device.default_name=motorola edge (2021)
 
 # Camera
 persist.vendor.camera.physical.num=4
 
-# Motorola
-ro.mot.build.customerid=global
-
 # NFC
 ro.vendor.hw.nfc=st
+
+# Radio
+ro.telephony.default_network=27,27
+ril.subscription.types=RUIM
